@@ -9,15 +9,22 @@
         android:id="@+id/navigation_home"
         android:name="com.dicoding.wanmuhtd.dicodingeventsapp.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_active_events"
+            app:destination="@id/navigation_active_events" />
+        <action
+            android:id="@+id/action_navigation_home_to_navigation_past_events"
+            app:destination="@id/navigation_past_events" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_active_events"
-        android:name="com.dicoding.wanmuhtd.dicodingeventsapp.ui.active.ActiveEventsFragment"
+        android:name="com.dicoding.wanmuhtd.dicodingeventsapp.ui.active.UpcomingEventFragment"
         android:label="@string/title_active_events"
-        tools:layout="@layout/fragment_active_events" />
+        tools:layout="@layout/fragment_upcoming_event" />
     <fragment
         android:id="@+id/navigation_past_events"
-        android:name="com.dicoding.wanmuhtd.dicodingeventsapp.ui.past.PastEventsFragment"
+        android:name="com.dicoding.wanmuhtd.dicodingeventsapp.ui.past.PastEventFragment"
         android:label="@string/title_past_events"
-        tools:layout="@layout/fragment_past_events" />
+        tools:layout="@layout/fragment_past_event" />
 </navigation>

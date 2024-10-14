@@ -5,4 +5,25 @@
     <string name="title_home">Home</string>
     <string name="title_active_events">Active Events</string>
     <string name="title_past_events">Past Events</string>
+    <string name="event_image">Event image</string>
+    <string name="background_image">Background image</string>
+    <string name="dicoding_logo">Dicoding logo</string>
+    <string name="hello_arwan">Hello Arwan!</string>
+    <string name="event_title">Event Title</string>
+    <string name="search_active_events">Search active event</string>
+    <string name="search_past_events">Search past event</string>
+    <string name="show_more">More</string>
+    <string name="welcome">Welcome to Dicoding Event Recomendation</string>
+    <string name="event_name">DevCoach 154 : ML Android | MediaPipe: Paket Lengkap dari Google untuk Terapkan ML di Android</string>
+    <string name="event_owner_name">Dicoding Event</string>
+    <string name="event_description">Acara ini sepenuhnya GRATIS dan akan diselenggarakan hari Jum\'at, 7 Juni 2024 pukul 16.00 – 17.00 WIB Live di YouTube</string>
+    <string name="begin_time">Begin Time :</string>
+    <string name="end_time">End Time :</string>
+    <string name="start">2024–06–07 16:00:00</string>
+    <string name="end">2024–06–07 17:00:00</string>
+    <string name="Description">Description</string>
+    <string name="available_quota">Available Quota :</string>
+    <string name="reg">1453/2000</string>
+    <string name="register">Register</string>
+    <string name="back">Back</string>
 </resources>

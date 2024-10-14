@@ -3,17 +3,17 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/baseline_home_filled_24"
+        android:icon="@drawable/ic_home"
         android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_active_events"
-        android:icon="@drawable/baseline_event_available_24"
+        android:icon="@drawable/ic_active"
         android:title="@string/title_active_events" />
 
     <item
         android:id="@+id/navigation_past_events"
-        android:icon="@drawable/baseline_event_busy_24"
+        android:icon="@drawable/ic_past"
         android:title="@string/title_past_events" />
 
 </menu>

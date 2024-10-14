@@ -1,60 +1,110 @@
 package com.dicoding.wanmuhtd.dicodingeventsapp.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import com.bumptech.glide.Glide
 import com.dicoding.wanmuhtd.dicodingeventsapp.R
+import com.dicoding.wanmuhtd.dicodingeventsapp.databinding.FragmentHomeBinding
+import com.dicoding.wanmuhtd.dicodingeventsapp.ui.DetailActivity
+import com.dicoding.wanmuhtd.dicodingeventsapp.ui.EventAdapter
+import com.dicoding.wanmuhtd.dicodingeventsapp.ui.HomeEventAdapter
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [HomeFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class HomeFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private val viewModel: HomeViewModel by viewModels()
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    ): View {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment HomeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            HomeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentHomeBinding.bind(view)
+
+        val profileImageUrl = "https://media.licdn.com/dms/image/v2/D5603AQEsa_LlEj2LrQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718239463820?e=1734566400&v=beta&t=6KOteo786cVvtJzIwdCNvQpeM2skHO9XJpsizj5N6C0" //
+
+        Glide.with(this)
+            .load(profileImageUrl)
+            .placeholder(R.drawable.baseline_account_circle_24)
+            .error(R.drawable.baseline_account_circle_24)
+            .circleCrop()
+            .into(binding.ivProfile)
+
+        binding.rvActiveEvents.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        val activeEventAdapter = HomeEventAdapter { event ->
+            val intent = Intent(requireContext(), DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_EVENT, event)
+            startActivity(intent)
+        }
+        binding.rvActiveEvents.adapter = activeEventAdapter
+
+        binding.rvPastEvents.layoutManager = LinearLayoutManager(requireContext())
+        val pastEventAdapter = EventAdapter { event ->
+            val intent = Intent(requireContext(), DetailActivity::class.java)
+            intent.putExtra(DetailActivity.EXTRA_EVENT, event)
+            startActivity(intent)
+        }
+        binding.rvPastEvents.adapter = pastEventAdapter
+
+        val snapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(binding.rvActiveEvents)
+
+        viewModel.activeEventList.observe(viewLifecycleOwner) { events ->
+            val limitedEvents = if (events.size > 5) events.take(5) else events
+            activeEventAdapter.submitList(limitedEvents)
+        }
+
+        viewModel.pastEventList.observe(viewLifecycleOwner) { events ->
+            val limitedEvents = if (events.size > 5) events.take(5) else events
+            pastEventAdapter.submitList(limitedEvents)
+        }
+
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            showLoading(isLoading, binding)
+        }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) { event ->
+            event.getContentIfNotHandled()?.let { message ->
+                Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
             }
+        }
+
+        binding.btnShowActiveEvents.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_navigation_home_to_navigation_active_events,
+                null,
+                NavOptions.Builder()
+                    .setPopUpTo(R.id.navigation_home, inclusive = false)
+                    .build()
+            )
+        }
+
+    }
+
+    private fun showLoading(isLoading: Boolean, binding: FragmentHomeBinding) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
