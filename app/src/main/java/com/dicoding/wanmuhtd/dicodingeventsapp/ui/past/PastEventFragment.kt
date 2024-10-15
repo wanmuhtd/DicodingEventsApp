@@ -36,7 +36,7 @@ class PastEventFragment : Fragment() {
         binding.rvPastEvents.layoutManager = LinearLayoutManager(requireContext())
         val eventAdapter = EventAdapter { event ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
-            intent.putExtra(DetailActivity.EXTRA_EVENT, event)
+            intent.putExtra(DetailActivity.EXTRA_EVENT_ID, event.id)
             startActivity(intent)
         }
         binding.rvPastEvents.adapter = eventAdapter
@@ -48,7 +48,7 @@ class PastEventFragment : Fragment() {
         binding.rvPastEventsSearch.layoutManager = LinearLayoutManager(requireActivity())
         val searchEventAdapter = EventAdapter { event ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
-            intent.putExtra(DetailActivity.EXTRA_EVENT, event)
+            intent.putExtra(DetailActivity.EXTRA_EVENT_ID, event.id)
             startActivity(intent)
         }
 

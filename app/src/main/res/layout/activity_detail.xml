@@ -39,7 +39,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/iv_event_picture"
                 app:layout_constraintStart_toStartOf="@id/iv_event_picture" />
-
             <LinearLayout
                 android:id="@+id/btn_back_container"
                 android:layout_width="wrap_content"
@@ -50,6 +49,7 @@
                 android:layout_marginStart="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
+
                 <ImageButton
                     android:id="@+id/btn_back"
                     android:layout_width="wrap_content"
@@ -58,14 +58,16 @@
                     android:contentDescription="@string/back"
                     android:padding="8dp"
                     android:src="@drawable/ic_back"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
                 <TextView
                     android:id="@+id/tv_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/back"
+                    android:textColor="@color/md_theme_onPrimary"
                     android:textStyle="bold"
-                    android:textColor="@color/md_theme_onPrimary"/>
+                    tools:ignore="TextContrastCheck" />
 
 
             </LinearLayout>
@@ -193,4 +195,14 @@
                 app:layout_constraintTop_toBottomOf="@id/tv_description"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,7 +36,7 @@ class UpcomingEventFragment : Fragment() {
         binding.rvActiveEvents.layoutManager = LinearLayoutManager(requireContext())
         val eventAdapter = EventAdapter { event ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
-            intent.putExtra(DetailActivity.EXTRA_EVENT, event)
+            intent.putExtra(DetailActivity.EXTRA_EVENT_ID, event.id)
             startActivity(intent)
         }
         binding.rvActiveEvents.adapter = eventAdapter
@@ -48,7 +48,7 @@ class UpcomingEventFragment : Fragment() {
         binding.rvActiveEventsSearch.layoutManager = LinearLayoutManager(requireActivity())
         val searchEventAdapter = EventAdapter { event ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
-            intent.putExtra(DetailActivity.EXTRA_EVENT, event)
+            intent.putExtra(DetailActivity.EXTRA_EVENT_ID, event.id)
             startActivity(intent)
         }
         binding.rvActiveEventsSearch.adapter = searchEventAdapter

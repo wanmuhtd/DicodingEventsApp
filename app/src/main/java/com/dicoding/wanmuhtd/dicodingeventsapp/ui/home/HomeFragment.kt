@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
         binding.rvActiveEvents.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         val activeEventAdapter = HomeEventAdapter { event ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
-            intent.putExtra(DetailActivity.EXTRA_EVENT, event)
+            intent.putExtra(DetailActivity.EXTRA_EVENT_ID, event.id)
             startActivity(intent)
         }
         binding.rvActiveEvents.adapter = activeEventAdapter
@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
         binding.rvPastEvents.layoutManager = LinearLayoutManager(requireContext())
         val pastEventAdapter = EventAdapter { event ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
-            intent.putExtra(DetailActivity.EXTRA_EVENT, event)
+            intent.putExtra(DetailActivity.EXTRA_EVENT_ID, event.id)
             startActivity(intent)
         }
         binding.rvPastEvents.adapter = pastEventAdapter
@@ -90,6 +90,16 @@ class HomeFragment : Fragment() {
         binding.btnShowActiveEvents.setOnClickListener {
             findNavController().navigate(
                 R.id.action_navigation_home_to_navigation_active_events,
+                null,
+                NavOptions.Builder()
+                    .setPopUpTo(R.id.navigation_home, inclusive = false)
+                    .build()
+            )
+        }
+
+        binding.btnShowPastEvents.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_navigation_home_to_navigation_past_events,
                 null,
                 NavOptions.Builder()
                     .setPopUpTo(R.id.navigation_home, inclusive = false)
