@@ -14,7 +14,7 @@ import retrofit2.Response
 import java.io.IOException
 import java.net.SocketTimeoutException
 
-class DetailViewModel(private val eventId: Int) : ViewModel() {
+class DetailViewModel(eventId: Int) : ViewModel() {
     private val _event = MutableLiveData<Event?>()
     val event: LiveData<Event?> = _event
 

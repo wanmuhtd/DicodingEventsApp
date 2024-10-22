@@ -9,9 +9,9 @@ import com.bumptech.glide.Glide
 import com.dicoding.wanmuhtd.dicodingeventsapp.data.model.ListEventsItem
 import com.dicoding.wanmuhtd.dicodingeventsapp.databinding.ItemEventBinding
 
-class EventAdapter (
+class EventAdapter(
     private val onClickItemListener: (ListEventsItem) -> Unit
-): ListAdapter<ListEventsItem, EventAdapter.EventViewHolder>(DIFF_CALLBACK) {
+) : ListAdapter<ListEventsItem, EventAdapter.EventViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
         val binding = ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return EventViewHolder(binding)
@@ -22,13 +22,13 @@ class EventAdapter (
         holder.bind(event, onClickItemListener)
     }
 
-    class EventViewHolder(private val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root) {
+    class EventViewHolder(private val binding: ItemEventBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(event: ListEventsItem, onItemClickListener: (ListEventsItem) -> Unit) {
             Glide.with(itemView.context)
                 .load(event.mediaCover)
                 .into(binding.ivEventPicture)
             binding.tvEventTitle.text = event.name
-
             itemView.setOnClickListener {
                 onItemClickListener(event)
             }
@@ -37,10 +37,17 @@ class EventAdapter (
 
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListEventsItem>() {
-            override fun areItemsTheSame(oldItem: ListEventsItem, newItem: ListEventsItem): Boolean {
+            override fun areItemsTheSame(
+                oldItem: ListEventsItem,
+                newItem: ListEventsItem
+            ): Boolean {
                 return oldItem == newItem
             }
-            override fun areContentsTheSame(oldItem: ListEventsItem, newItem: ListEventsItem): Boolean {
+
+            override fun areContentsTheSame(
+                oldItem: ListEventsItem,
+                newItem: ListEventsItem
+            ): Boolean {
                 return oldItem == newItem
             }
         }

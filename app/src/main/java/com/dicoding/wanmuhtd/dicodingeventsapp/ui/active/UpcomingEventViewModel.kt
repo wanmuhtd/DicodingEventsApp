@@ -90,7 +90,6 @@ class UpcomingEventViewModel : ViewModel() {
     }
 
     private fun handleFailure(t: Throwable) {
-        Log.e(TAG, "onFailure: ${t.message}")
         val errorMessage = when (t) {
             is SocketTimeoutException -> "Request timeout. Please try again."
             is IOException -> "Failed to connect to server. Please check your internet connection."

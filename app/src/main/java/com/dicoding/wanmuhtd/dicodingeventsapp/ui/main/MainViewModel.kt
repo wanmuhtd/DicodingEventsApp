@@ -39,7 +39,7 @@ class MainViewModel : ViewModel() {
                     if (responseBody != null) {
                         _eventList.value = response.body()?.listEvents
                     }
-                }else {
+                } else {
                     Log.d(TAG, "onResponse: ${response.message()}")
                 }
             }

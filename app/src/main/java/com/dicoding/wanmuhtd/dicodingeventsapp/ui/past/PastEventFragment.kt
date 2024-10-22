@@ -55,7 +55,7 @@ class PastEventFragment : Fragment() {
         binding.rvPastEventsSearch.adapter = searchEventAdapter
 
         viewModel.searchResults.observe(viewLifecycleOwner) { filteredEvents ->
-            if(!filteredEvents.isNullOrEmpty()) {
+            if (!filteredEvents.isNullOrEmpty()) {
                 binding.rvPastEventsSearch.visibility = View.VISIBLE
                 binding.rvPastEvents.visibility = View.GONE
                 searchEventAdapter.submitList(filteredEvents)
@@ -66,7 +66,7 @@ class PastEventFragment : Fragment() {
             }
         }
 
-        with(binding){
+        with(binding) {
             svPastEvents.setupWithSearchBar(sbPastEvents)
             svPastEvents
                 .editText

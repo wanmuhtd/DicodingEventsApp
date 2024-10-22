@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.dicoding.wanmuhtd.dicodingeventsapp.databinding.ActivityDetailBinding
 
-class DetailActivity  : AppCompatActivity() {
+class DetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailBinding
 
     private val eventId: Int by lazy {
@@ -38,7 +38,8 @@ class DetailActivity  : AppCompatActivity() {
     private fun setupRegisterButton(link: String?) {
         binding.btnRegister.setOnClickListener {
             if (link.isNullOrEmpty()) {
-                Toast.makeText(this, "Registration link is not available", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Registration link is not available", Toast.LENGTH_SHORT)
+                    .show()
             } else {
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
                 startActivity(intent)

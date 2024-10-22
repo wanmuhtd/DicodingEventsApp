@@ -39,7 +39,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val binding = FragmentHomeBinding.bind(view)
 
-        val profileImageUrl = "https://media.licdn.com/dms/image/v2/D5603AQEsa_LlEj2LrQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718239463820?e=1734566400&v=beta&t=6KOteo786cVvtJzIwdCNvQpeM2skHO9XJpsizj5N6C0" //
+        val profileImageUrl =
+            "https://media.licdn.com/dms/image/v2/D5603AQEsa_LlEj2LrQ/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1718239463820?e=1734566400&v=beta&t=6KOteo786cVvtJzIwdCNvQpeM2skHO9XJpsizj5N6C0" //
 
         Glide.with(this)
             .load(profileImageUrl)
@@ -48,7 +49,8 @@ class HomeFragment : Fragment() {
             .circleCrop()
             .into(binding.ivProfile)
 
-        binding.rvActiveEvents.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.rvActiveEvents.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         val activeEventAdapter = HomeEventAdapter { event ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
             intent.putExtra(DetailActivity.EXTRA_EVENT_ID, event.id)

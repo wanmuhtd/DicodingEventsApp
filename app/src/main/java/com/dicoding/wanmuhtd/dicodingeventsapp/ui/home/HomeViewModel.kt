@@ -15,9 +15,6 @@ import java.io.IOException
 import java.net.SocketTimeoutException
 
 class HomeViewModel : ViewModel() {
-    //private val _eventList = MutableLiveData<List<ListEventsItem>>()
-    //val eventlist: LiveData<List<ListEventsItem>> = _eventList
-
     private val _activeEventList = MutableLiveData<List<ListEventsItem>>()
     val activeEventList: LiveData<List<ListEventsItem>> = _activeEventList
 
@@ -28,9 +25,6 @@ class HomeViewModel : ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
-
-    //private val _searchResults = MutableLiveData<List<ListEventsItem>>()
-    //val searchResults: LiveData<List<ListEventsItem>> = _searchResults
 
     private val _errorMessage = MutableLiveData<SingleEventWrapper<String>>()
     val errorMessage: LiveData<SingleEventWrapper<String>> = _errorMessage

@@ -54,7 +54,7 @@ class UpcomingEventFragment : Fragment() {
         binding.rvActiveEventsSearch.adapter = searchEventAdapter
 
         viewModel.searchResults.observe(viewLifecycleOwner) { filteredEvents ->
-            if(!filteredEvents.isNullOrEmpty()) {
+            if (!filteredEvents.isNullOrEmpty()) {
                 binding.rvActiveEventsSearch.visibility = View.VISIBLE
                 binding.rvActiveEvents.visibility = View.GONE
                 searchEventAdapter.submitList(filteredEvents)
@@ -65,7 +65,7 @@ class UpcomingEventFragment : Fragment() {
             }
         }
 
-        with(binding){
+        with(binding) {
             svActiveEvents.setupWithSearchBar(sbActiveEvents)
             svActiveEvents
                 .editText
