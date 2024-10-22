@@ -1,4 +1,4 @@
-package com.dicoding.wanmuhtd.dicodingeventsapp.ui
+package com.dicoding.wanmuhtd.dicodingeventsapp.ui.detail
 
 import android.content.Intent
 import android.net.Uri

@@ -12,8 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.wanmuhtd.dicodingeventsapp.databinding.FragmentUpcomingEventBinding
-import com.dicoding.wanmuhtd.dicodingeventsapp.ui.DetailActivity
-import com.dicoding.wanmuhtd.dicodingeventsapp.ui.EventAdapter
+import com.dicoding.wanmuhtd.dicodingeventsapp.ui.detail.DetailActivity
+import com.dicoding.wanmuhtd.dicodingeventsapp.ui.adapter.EventAdapter
 
 class UpcomingEventFragment : Fragment() {
     private val viewModel: UpcomingEventViewModel by viewModels()

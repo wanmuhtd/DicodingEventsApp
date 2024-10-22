@@ -1,4 +1,4 @@
-package com.dicoding.wanmuhtd.dicodingeventsapp.ui
+package com.dicoding.wanmuhtd.dicodingeventsapp.ui.main
 
 
 import android.os.Bundle

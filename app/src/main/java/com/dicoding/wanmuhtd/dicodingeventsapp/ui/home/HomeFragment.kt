@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.LinearSnapHelper
 import com.bumptech.glide.Glide
 import com.dicoding.wanmuhtd.dicodingeventsapp.R
 import com.dicoding.wanmuhtd.dicodingeventsapp.databinding.FragmentHomeBinding
-import com.dicoding.wanmuhtd.dicodingeventsapp.ui.DetailActivity
-import com.dicoding.wanmuhtd.dicodingeventsapp.ui.EventAdapter
-import com.dicoding.wanmuhtd.dicodingeventsapp.ui.HomeEventAdapter
+import com.dicoding.wanmuhtd.dicodingeventsapp.ui.detail.DetailActivity
+import com.dicoding.wanmuhtd.dicodingeventsapp.ui.adapter.EventAdapter
+import com.dicoding.wanmuhtd.dicodingeventsapp.ui.adapter.HomeEventAdapter
 
 class HomeFragment : Fragment() {
 
