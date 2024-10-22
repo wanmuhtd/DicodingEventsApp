@@ -41,7 +41,7 @@ class UpcomingEventFragment : Fragment() {
         }
         binding.rvActiveEvents.adapter = eventAdapter
 
-        viewModel.eventlist.observe(viewLifecycleOwner) { events ->
+        viewModel.eventList.observe(viewLifecycleOwner) { events ->
             eventAdapter.submitList(events)
         }
 

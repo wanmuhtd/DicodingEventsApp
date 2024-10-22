@@ -41,7 +41,7 @@ class PastEventFragment : Fragment() {
         }
         binding.rvPastEvents.adapter = eventAdapter
 
-        viewModel.eventlist.observe(viewLifecycleOwner) { events ->
+        viewModel.eventList.observe(viewLifecycleOwner) { events ->
             eventAdapter.submitList(events)
         }
 

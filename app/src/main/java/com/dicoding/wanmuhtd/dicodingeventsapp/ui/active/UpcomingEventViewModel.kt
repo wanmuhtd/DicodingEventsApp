@@ -16,7 +16,7 @@ import java.net.SocketTimeoutException
 
 class UpcomingEventViewModel : ViewModel() {
     private val _eventList = MutableLiveData<List<ListEventsItem>>()
-    val eventlist: LiveData<List<ListEventsItem>> = _eventList
+    val eventList: LiveData<List<ListEventsItem>> = _eventList
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
