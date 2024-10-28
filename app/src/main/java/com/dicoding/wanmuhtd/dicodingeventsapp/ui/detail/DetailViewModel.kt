@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.wanmuhtd.dicodingeventsapp.data.model.DetailEventResponse
-import com.dicoding.wanmuhtd.dicodingeventsapp.data.model.Event
-import com.dicoding.wanmuhtd.dicodingeventsapp.data.retrofit.ApiConfig
+import com.dicoding.wanmuhtd.dicodingeventsapp.data.remote.response.DetailEventResponse
+import com.dicoding.wanmuhtd.dicodingeventsapp.data.remote.response.Event
+import com.dicoding.wanmuhtd.dicodingeventsapp.data.remote.retrofit.ApiConfig
 import com.dicoding.wanmuhtd.dicodingeventsapp.util.SingleEventWrapper
 import retrofit2.Call
 import retrofit2.Callback
@@ -14,7 +14,8 @@ import retrofit2.Response
 import java.io.IOException
 import java.net.SocketTimeoutException
 
-class DetailViewModel(eventId: Int) : ViewModel() {
+@Suppress("UNUSED_PARAMETER")
+class DetailViewModel(eventId: Int, eventStatus: Boolean) : ViewModel() {
     private val _event = MutableLiveData<Event?>()
     val event: LiveData<Event?> = _event
 
@@ -38,7 +39,7 @@ class DetailViewModel(eventId: Int) : ViewModel() {
         client.enqueue(object : Callback<DetailEventResponse> {
             override fun onResponse(
                 call: Call<DetailEventResponse>,
-                response: Response<DetailEventResponse>
+                response: Response<DetailEventResponse>,
             ) {
                 _isLoading.value = false
                 if (response.isSuccessful) {

@@ -1,4 +1,4 @@
-package com.dicoding.wanmuhtd.dicodingeventsapp.data.retrofit
+package com.dicoding.wanmuhtd.dicodingeventsapp.data.remote.retrofit
 
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

@@ -3,11 +3,12 @@ package com.dicoding.wanmuhtd.dicodingeventsapp.ui.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class DetailViewModelFactory(private val eventId: Int) : ViewModelProvider.Factory {
+class DetailViewModelFactory(private val eventId: Int, private val eventStatus: Boolean) :
+    ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return DetailViewModel(eventId) as T
+            return DetailViewModel(eventId, eventStatus) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

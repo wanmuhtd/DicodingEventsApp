@@ -16,4 +16,13 @@
         android:icon="@drawable/ic_past"
         android:title="@string/title_past_events" />
 
+    <item
+        android:id="@+id/navigation_favorite_events"
+        android:icon="@drawable/ic_love_solid"
+        android:title="@string/title_favorite_events" />
+
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/title_settings" />
 </menu>

@@ -1,4 +1,4 @@
-package com.dicoding.wanmuhtd.dicodingeventsapp.data.model
+package com.dicoding.wanmuhtd.dicodingeventsapp.data.remote.response
 
 import kotlinx.parcelize.Parcelize
 import android.os.Parcelable
@@ -50,7 +50,7 @@ data class Event(
     val name: String? = null,
 
     @field:SerializedName("id")
-    val id: Int? = null,
+    val id: Int,
 
     @field:SerializedName("beginTime")
     val beginTime: String? = null,

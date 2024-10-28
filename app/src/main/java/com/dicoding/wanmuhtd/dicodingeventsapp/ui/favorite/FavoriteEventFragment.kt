@@ -1,79 +1,65 @@
-package com.dicoding.wanmuhtd.dicodingeventsapp.ui.past
+package com.dicoding.wanmuhtd.dicodingeventsapp.ui.favorite
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.wanmuhtd.dicodingeventsapp.data.Result
-import com.dicoding.wanmuhtd.dicodingeventsapp.databinding.FragmentPastEventBinding
+import com.dicoding.wanmuhtd.dicodingeventsapp.databinding.FragmentFavoriteEventBinding
 import com.dicoding.wanmuhtd.dicodingeventsapp.ui.ViewModelFactory
+import com.dicoding.wanmuhtd.dicodingeventsapp.adapter.FavoriteEventAdapter
 import com.dicoding.wanmuhtd.dicodingeventsapp.ui.detail.DetailActivity
-import com.dicoding.wanmuhtd.dicodingeventsapp.adapter.PastEventAdapter
 import com.dicoding.wanmuhtd.dicodingeventsapp.ui.setting.SettingPreferences
 import com.dicoding.wanmuhtd.dicodingeventsapp.ui.setting.dataStore
 
-class PastEventFragment : Fragment() {
-    private var _binding: FragmentPastEventBinding? = null
+
+class FavoriteEventFragment : Fragment() {
+
+    private var _binding: FragmentFavoriteEventBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentPastEventBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoriteEventBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val pref = SettingPreferences.getInstance(requireActivity().dataStore)
-        val factory: ViewModelFactory = ViewModelFactory.getInstance(requireContext(), pref)
-        val viewModel: PastEventViewModel by viewModels<PastEventViewModel> { factory }
-        val pastEventsAdapter = PastEventAdapter { event ->
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(requireActivity(), pref)
+        val viewModel: FavoriteEventViewModel by viewModels<FavoriteEventViewModel> { factory }
+        val favoriteEventsAdapter = FavoriteEventAdapter { event ->
             Toast.makeText(requireContext(), "Clicked: ${event.name}", Toast.LENGTH_SHORT).show()
             val intent = Intent(requireContext(), DetailActivity::class.java)
             intent.putExtra(DetailActivity.EXTRA_EVENT_ID, event.id)
-            intent.putExtra(DetailActivity.EXTRA_EVENT_STATUS, false)
+            intent.putExtra(DetailActivity.EXTRA_EVENT_STATUS, event.statusEvent)
             startActivity(intent)
         }
 
-        val searchEventAdapter = PastEventAdapter { event ->
+        val searchEventAdapter = FavoriteEventAdapter { event ->
             val intent = Intent(requireContext(), DetailActivity::class.java)
             intent.putExtra(DetailActivity.EXTRA_EVENT_ID, event.id)
-            intent.putExtra(DetailActivity.EXTRA_EVENT_STATUS, false)
+            intent.putExtra(DetailActivity.EXTRA_EVENT_STATUS, event.statusEvent)
             startActivity(intent)
         }
 
-        viewModel.getPastEvents().observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Loading -> binding.progressBar.visibility = View.VISIBLE
-                is Result.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    pastEventsAdapter.submitList(result.data)
-                }
-
-                is Result.Error -> {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(
-                        requireContext(),
-                        "Terjadi kesalahan: ${result.error}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+        viewModel.getFavoriteEvents().observe(viewLifecycleOwner) { event ->
+            favoriteEventsAdapter.submitList(event)
         }
 
         with(binding) {
-            svPastEvents.setupWithSearchBar(sbPastEvents)
-            svPastEvents.editText.setOnEditorActionListener { textView, _, _ ->
+            svFavoriteEvents.setupWithSearchBar(sbFavoriteEvents)
+            svFavoriteEvents.editText.setOnEditorActionListener { textView, _, _ ->
                 val query = textView.text.toString()
-                svPastEvents.hide()
+                svFavoriteEvents.hide()
 
                 viewModel.searchEvents(query).observe(viewLifecycleOwner) { filterResult ->
                     when (filterResult) {
@@ -82,15 +68,15 @@ class PastEventFragment : Fragment() {
                             progressBar.visibility = View.GONE
                             if (filterResult.data.isEmpty()) {
                                 tvNoResult.visibility = View.VISIBLE
-                                rvPastEventsSearch.visibility = View.GONE
-                                rvPastEvents.visibility = View.GONE
+                                rvFavoriteEventsSearch.visibility = View.GONE
+                                rvFavoriteEvents.visibility = View.GONE
                             } else {
                                 tvNoResult.visibility = View.GONE
                                 searchEventAdapter.submitList(filterResult.data)
-                                rvPastEventsSearch.visibility = View.VISIBLE
-                                rvPastEvents.visibility = View.GONE
+                                rvFavoriteEventsSearch.visibility = View.VISIBLE
+                                rvFavoriteEvents.visibility = View.GONE
                             }
-                            sbPastEvents.setText(svPastEvents.text)
+                            sbFavoriteEvents.setText(svFavoriteEvents.text)
 
                         }
 
@@ -108,21 +94,25 @@ class PastEventFragment : Fragment() {
             }
         }
 
-        binding.rvPastEvents.apply {
+        binding.rvFavoriteEvents.apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
-            adapter = pastEventsAdapter
+            adapter = favoriteEventsAdapter
         }
 
-        binding.rvPastEventsSearch.apply {
+        binding.rvFavoriteEventsSearch.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = searchEventAdapter
         }
-
+        binding.rvFavoriteEvents.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = favoriteEventsAdapter
+        }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 }

@@ -1,4 +1,4 @@
-package com.dicoding.wanmuhtd.dicodingeventsapp.ui.adapter
+package com.dicoding.wanmuhtd.dicodingeventsapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.dicoding.wanmuhtd.dicodingeventsapp.data.model.ListEventsItem
-import com.dicoding.wanmuhtd.dicodingeventsapp.databinding.ItemEventHorizontalBinding
+import com.dicoding.wanmuhtd.dicodingeventsapp.data.remote.response.ListEventsItem
+import com.dicoding.wanmuhtd.dicodingeventsapp.databinding.ItemEventBinding
 
-class HomeEventAdapter(
+class EventAdapter(
     private val onClickItemListener: (ListEventsItem) -> Unit
-) : ListAdapter<ListEventsItem, HomeEventAdapter.EventViewHolder>(DIFF_CALLBACK) {
+) : ListAdapter<ListEventsItem, EventAdapter.EventViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventViewHolder {
-        val binding = ItemEventHorizontalBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemEventBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return EventViewHolder(binding)
     }
 
@@ -22,12 +22,13 @@ class HomeEventAdapter(
         holder.bind(event, onClickItemListener)
     }
 
-    class EventViewHolder(private val binding: ItemEventHorizontalBinding) :
+    class EventViewHolder(private val binding: ItemEventBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(event: ListEventsItem, onItemClickListener: (ListEventsItem) -> Unit) {
-            Glide.with(itemView.context).load(event.mediaCover).into(binding.ivEventPicture)
+            Glide.with(itemView.context)
+                .load(event.mediaCover)
+                .into(binding.ivEventPicture)
             binding.tvEventTitle.text = event.name
-
             itemView.setOnClickListener {
                 onItemClickListener(event)
             }
@@ -37,13 +38,15 @@ class HomeEventAdapter(
     companion object {
         val DIFF_CALLBACK = object : DiffUtil.ItemCallback<ListEventsItem>() {
             override fun areItemsTheSame(
-                oldItem: ListEventsItem, newItem: ListEventsItem
+                oldItem: ListEventsItem,
+                newItem: ListEventsItem
             ): Boolean {
                 return oldItem == newItem
             }
 
             override fun areContentsTheSame(
-                oldItem: ListEventsItem, newItem: ListEventsItem
+                oldItem: ListEventsItem,
+                newItem: ListEventsItem
             ): Boolean {
                 return oldItem == newItem
             }

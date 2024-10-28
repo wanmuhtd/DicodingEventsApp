@@ -4,25 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.active.UpcomingEventFragment">
+    tools:context=".ui.favorite.FavoriteEventFragment">
 
     <com.google.android.material.search.SearchBar
-        android:id="@+id/sb_active_events"
+        android:id="@+id/sb_favorite_events"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:hint="@string/search_active_events"
+        android:hint="@string/search_favorite_events"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_title">
     </com.google.android.material.search.SearchBar>
 
     <com.google.android.material.search.SearchView
-        android:id="@+id/sv_active_events"
+        android:id="@+id/sv_favorite_events"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:hint="@string/search_active_events"
-        app:layout_anchor="@id/sb_active_events"
+        android:hint="@string/search_favorite_events"
+        app:layout_anchor="@id/sb_favorite_events"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +33,7 @@
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_active_events"
+        android:text="@string/title_favorite_events"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="48dp"
         android:textStyle="bold"
@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_active_events"
+        android:id="@+id/rv_favorite_events"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -52,11 +52,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sb_active_events"
+        app:layout_constraintTop_toBottomOf="@id/sb_favorite_events"
         tools:listitem="@layout/item_event" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_active_events_search"
+        android:id="@+id/rv_favorite_events_search"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
@@ -65,7 +65,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/sb_active_events"
+        app:layout_constraintTop_toBottomOf="@id/sb_favorite_events"
         tools:listitem="@layout/item_event"
         android:visibility="gone" />
 

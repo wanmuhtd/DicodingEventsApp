@@ -27,4 +27,14 @@
         android:name="com.dicoding.wanmuhtd.dicodingeventsapp.ui.past.PastEventFragment"
         android:label="@string/title_past_events"
         tools:layout="@layout/fragment_past_event" />
+    <fragment
+        android:id="@+id/navigation_favorite_events"
+        android:name="com.dicoding.wanmuhtd.dicodingeventsapp.ui.favorite.FavoriteEventFragment"
+        android:label="fragment_favorite_event"
+        tools:layout="@layout/fragment_favorite_event" />
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.dicoding.wanmuhtd.dicodingeventsapp.ui.setting.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
 </navigation>

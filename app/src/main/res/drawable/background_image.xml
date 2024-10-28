@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:aapt="http://schemas.android.com/aapt"
+    xmlns:tools="http://schemas.android.com/tools"
     android:width="256dp"
     android:height="256dp"
     android:viewportWidth="256"
-    android:viewportHeight="256">
+    android:viewportHeight="256"
+    tools:ignore="VectorRaster">
     <path
         android:pathData="M0,0h256v256h-256z">
         <aapt:attr name="android:fillColor">

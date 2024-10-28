@@ -11,6 +11,7 @@
     <string name="hello_arwan">Hello Arwan!</string>
     <string name="event_title">Event Title</string>
     <string name="search_active_events">Search active event</string>
+    <string name="search_favorite_events">Search favorite event</string>
     <string name="search_past_events">Search past event</string>
     <string name="show_more">More</string>
     <string name="welcome">Welcome to Dicoding Event Recomendation</string>
@@ -26,4 +27,11 @@
     <string name="reg">1453/2000</string>
     <string name="register">Register</string>
     <string name="back">Back</string>
+    <string name="no_result">Search results were not found</string>
+    <string name="title_favorite_events">Favorite</string>
+    <string name="title_settings">Settings</string>
+    <string name="enable_dark_theme">Enable dark theme</string>
+    <string name="enable_daily_reminder">Enable daily reminder</string>
+    <string name="title_display">Display</string>
+    <string name="title_notification">Notification</string>
 </resources>

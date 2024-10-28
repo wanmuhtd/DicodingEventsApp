@@ -1,100 +1,32 @@
 package com.dicoding.wanmuhtd.dicodingeventsapp.ui.active
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.wanmuhtd.dicodingeventsapp.data.model.EventResponse
-import com.dicoding.wanmuhtd.dicodingeventsapp.data.model.ListEventsItem
-import com.dicoding.wanmuhtd.dicodingeventsapp.data.retrofit.ApiConfig
-import com.dicoding.wanmuhtd.dicodingeventsapp.util.SingleEventWrapper
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import java.io.IOException
-import java.net.SocketTimeoutException
+import androidx.lifecycle.viewModelScope
+import com.dicoding.wanmuhtd.dicodingeventsapp.data.EventsRepository
+import com.dicoding.wanmuhtd.dicodingeventsapp.data.local.entity.UpcomingEventsEntity
+import kotlinx.coroutines.launch
 
-class UpcomingEventViewModel : ViewModel() {
-    private val _eventList = MutableLiveData<List<ListEventsItem>>()
-    val eventList: LiveData<List<ListEventsItem>> = _eventList
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+class UpcomingEventViewModel(private val eventsRepository: EventsRepository) : ViewModel() {
 
-    private val _searchResults = MutableLiveData<List<ListEventsItem>>()
-    val searchResults: LiveData<List<ListEventsItem>> = _searchResults
 
-    private val _errorMessage = MutableLiveData<SingleEventWrapper<String>>()
-    val errorMessage: LiveData<SingleEventWrapper<String>> = _errorMessage
+    fun searchEvents(query: String) = eventsRepository.searchUpcomingEvents(query)
 
-    companion object {
-        private const val TAG = "UpcomingEventsViewModel"
+    fun getUpcomingEvents() = eventsRepository.getUpcomingEvents()
+
+    fun checkIsFavorite(id: Int): LiveData<UpcomingEventsEntity> {
+        return eventsRepository.checkIsFavoriteUpcoming(id)
     }
-
-    init {
-        getEvents()
-    }
-
-    private fun getEvents() {
-        _isLoading.value = true
-        val client = ApiConfig.getApiService().getEvents(1)
-        client.enqueue(object : Callback<EventResponse> {
-            override fun onResponse(
-                call: Call<EventResponse>,
-                response: Response<EventResponse>
-            ) {
-                _isLoading.value = false
-                if (response.isSuccessful) {
-                    val responseBody = response.body()
-                    if (responseBody != null) {
-                        _eventList.value = response.body()?.listEvents
-                    }
-                } else {
-                    handleError("Failed to retrieve data: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<EventResponse>, t: Throwable) {
-                _isLoading.value = false
-                handleFailure(t)
-            }
-        })
-    }
-
-    fun searchEvents(query: String) {
-        _isLoading.value = true
-        val client = ApiConfig.getApiService().searchEvents(1, query)
-        client.enqueue(object : Callback<EventResponse> {
-            override fun onResponse(call: Call<EventResponse>, response: Response<EventResponse>) {
-                _isLoading.value = false
-                if (response.isSuccessful) {
-                    response.body()?.listEvents?.let {
-                        _searchResults.value = it
-                    }
-                } else {
-                    handleError("Failed to retrieve data: ${response.message()}")
-                }
-            }
-
-            override fun onFailure(call: Call<EventResponse>, t: Throwable) {
-                _isLoading.value = false
-                handleFailure(t)
-            }
-        })
-    }
-
-    private fun handleError(message: String) {
-        Log.d(TAG, message)
-        _errorMessage.value =
-            SingleEventWrapper(message)
-    }
-
-    private fun handleFailure(t: Throwable) {
-        val errorMessage = when (t) {
-            is SocketTimeoutException -> "Request timeout. Please try again."
-            is IOException -> "Failed to connect to server. Please check your internet connection."
-            else -> "There is an error. ${t.message}"
+    fun saveEvent(id: Int) {
+        viewModelScope.launch {
+            eventsRepository.setUpcomingFavorite(id, true)
         }
-        _errorMessage.value = SingleEventWrapper(errorMessage)
+    }
+
+    fun deleteEvent(id: Int) {
+        viewModelScope.launch {
+            eventsRepository.setUpcomingFavorite(id, false)
+        }
     }
 }
